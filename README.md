@@ -1,5 +1,4 @@
-| Supported Targets | ESP32 | ESP32-C3 | ESP32-C5 | ESP32-C6 | ESP32-H2 | ESP32-H21 | ESP32-H4 | ESP32-P4 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | --------- | -------- | -------- | -------- | -------- |
+| Supported Targets: ESP32 
 
 # CAN Bridge for SavvyCAN
 
@@ -16,26 +15,50 @@ This project implements a **CAN-to-USB bridge** for analyzing automotive CAN bus
 
 ## Hardware Requirements
 
-- ESP32 development board with USB-C connector (or any ESP32 variant with USB CDC support)
-- CAN transceiver (e.g., SN65HVD230, TJA1050, MCP2551)
-- Jumper wires
+- ESP32 development board (with USB-C connector recommended)
+- CAN transceiver module:
+  - **SN65HVD230** (recommended - 3.3V native, ideal for ESP32)
+  - TJA1050 or MCP2551 (5V - requires level shifter)
+- Jumper wires (female-to-female or female-to-male)
+- Optional: Breadboard for prototyping
 
 ## Hardware Setup
+
+### Quick Connection Guide
 
 Connect the ESP32 to a CAN transceiver:
 
 ```
-ESP32 Pin     Transceiver    CAN Bus
----------     -----------    --------
+ESP32 Pin     SN65HVD230    CAN Bus / Vehicle
+---------     -----------   ------------------
 GPIO4 (TX) -->  CTX
 GPIO5 (RX) <--  CRX
-3.3V       -->  VCC
+3.3V       -->  3V3
 GND        -->  GND
-              CANH       <-->  CANH (Vehicle CAN)
-              CANL       <-->  CANL (Vehicle CAN)
+              CANH       <-->  OBD-II Pin 3 (CAN High)
+              CANL       <-->  OBD-II Pin 11 (CAN Low)
+              GND        <-->  OBD-II Pin 5 (Signal GND)
 ```
 
-**Important**: GPIO pins can be configured in menuconfig under "CAN Bridge Configuration".
+**Important Notes**:
+- GPIO pins can be configured in menuconfig under "CAN Bridge Configuration"
+- Use **3.3V** for SN65HVD230 (NOT 5V!)
+- For OBD-II connections: CAN High is pin 3, CAN Low is pin 11
+- Disable termination resistor on transceiver module when tapping into existing vehicle CAN bus
+
+### Detailed Setup
+
+For complete wiring diagrams, breadboard layouts, OBD-II pinouts, alternative transceivers, troubleshooting, and safety notes, see:
+
+📖 **[docs/HARDWARE_SETUP.md](docs/HARDWARE_SETUP.md)**
+
+The hardware guide includes:
+- Detailed wiring diagrams and connection tables
+- OBD-II and infotainment system connection instructions
+- CAN bus voltage testing and verification procedures
+- Alternative transceiver options and compatibility
+- Complete troubleshooting section
+- Safety warnings and best practices
 
 ## Quick Start
 
