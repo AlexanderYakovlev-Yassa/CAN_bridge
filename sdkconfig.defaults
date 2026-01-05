@@ -1,0 +1,14 @@
+# USB CDC Console Configuration
+CONFIG_ESP_CONSOLE_USB_CDC=y
+CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+
+# CAN GPIO Configuration
+CONFIG_CAN_TX_GPIO=4
+CONFIG_CAN_RX_GPIO=5
+
+# Increase USB CDC buffer sizes for better throughput
+CONFIG_USB_CDC_RX_BUFSIZE=256
+CONFIG_USB_CDC_TX_BUFSIZE=256
+
+# Enable USB Serial JTAG for targets that support it
+# (will be used automatically if USB CDC is not available)

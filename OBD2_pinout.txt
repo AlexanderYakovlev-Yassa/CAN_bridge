@@ -1,0 +1,5 @@
+OBDII
+
+11 - yellow: CAN low
+3  - violet: CAN high
+5  - light blue: signal GND
